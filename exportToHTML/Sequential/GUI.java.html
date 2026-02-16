@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>GUI.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GUI.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Sequential</span><span class="s2">;</span>
+
+
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">imageio</span><span class="s2">.</span><span class="s1">ImageIO</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">swing</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.</span><span class="s1">image</span><span class="s2">.</span><span class="s1">BufferedImage</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">File</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">IOException</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">GUI </span><span class="s0">extends </span><span class="s1">JPanel </span><span class="s0">implements </span><span class="s1">Runnable </span><span class="s2">{</span>
+
+    <span class="s0">private static final int </span><span class="s1">FRAME_WIDTH </span><span class="s2">= </span><span class="s3">800</span><span class="s2">;</span>
+    <span class="s0">private static final int </span><span class="s1">FRAME_HEIGHT </span><span class="s2">= </span><span class="s3">600</span><span class="s2">;</span>
+
+    <span class="s0">private final </span><span class="s1">BufferedImage floor </span><span class="s2">= </span><span class="s1">ImageIO</span><span class="s2">.</span><span class="s1">read</span><span class="s2">(</span><span class="s0">new </span><span class="s1">File</span><span class="s2">(</span><span class="s4">&quot;./Tile/tile_0468.png&quot;</span><span class="s2">));</span>
+    <span class="s0">private final </span><span class="s1">BufferedImage botImage </span><span class="s2">= </span><span class="s1">ImageIO</span><span class="s2">.</span><span class="s1">read</span><span class="s2">(</span><span class="s0">new </span><span class="s1">File</span><span class="s2">(</span><span class="s4">&quot;./Tiles/tile_0108.png&quot;</span><span class="s2">));</span>
+    <span class="s0">private final </span><span class="s1">BufferedImage shelfImage </span><span class="s2">= </span><span class="s1">ImageIO</span><span class="s2">.</span><span class="s1">read</span><span class="s2">(</span><span class="s0">new </span><span class="s1">File</span><span class="s2">(</span><span class="s4">&quot;./Tile/tile_0300.png&quot;</span><span class="s2">));</span>
+
+
+    <span class="s0">public </span><span class="s1">GUI</span><span class="s2">() </span><span class="s0">throws </span><span class="s1">IOException </span><span class="s2">{</span>
+        <span class="s1">JFrame frame </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JFrame</span><span class="s2">(</span><span class="s4">&quot;Warehouse Bots&quot;</span><span class="s2">);</span>
+        <span class="s1">frame</span><span class="s2">.</span><span class="s1">setDefaultCloseOperation</span><span class="s2">(</span><span class="s1">JFrame</span><span class="s2">.</span><span class="s1">EXIT_ON_CLOSE</span><span class="s2">);</span>
+        <span class="s1">frame</span><span class="s2">.</span><span class="s1">setSize</span><span class="s2">(</span><span class="s1">FRAME_WIDTH</span><span class="s2">, </span><span class="s1">FRAME_HEIGHT </span><span class="s2">+ </span><span class="s3">39</span><span class="s2">);</span>
+        <span class="s1">frame</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">this</span><span class="s2">);</span>
+        <span class="s1">frame</span><span class="s2">.</span><span class="s1">setVisible</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">run</span><span class="s2">() {</span>
+        <span class="s1">Timer timer </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Timer</span><span class="s2">(</span><span class="s3">200</span><span class="s2">, </span><span class="s1">e -&gt; </span><span class="s2">{</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">Bot bot </span><span class="s2">: </span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">bots</span><span class="s2">){</span>
+                <span class="s1">bot</span><span class="s2">.</span><span class="s1">update</span><span class="s2">();</span>
+            <span class="s2">}</span>
+            <span class="s1">repaint</span><span class="s2">();</span>
+        <span class="s2">});</span>
+        <span class="s1">timer</span><span class="s2">.</span><span class="s1">start</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">paint</span><span class="s2">(</span><span class="s1">Graphics g</span><span class="s2">) {</span>
+        <span class="s1">Graphics2D g2d </span><span class="s2">= (</span><span class="s1">Graphics2D</span><span class="s2">) </span><span class="s1">g</span><span class="s2">;</span>
+
+        <span class="s0">int </span><span class="s1">tileWidth </span><span class="s2">= </span><span class="s1">FRAME_WIDTH </span><span class="s2">/ </span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">WIDTH</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">tileHeight </span><span class="s2">= </span><span class="s1">FRAME_HEIGHT </span><span class="s2">/ </span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">HEIGHT</span><span class="s2">;</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">row </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">row </span><span class="s2">&lt; </span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">HEIGHT</span><span class="s2">; </span><span class="s1">row</span><span class="s2">++) {</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">col </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">col </span><span class="s2">&lt; </span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">WIDTH</span><span class="s2">; </span><span class="s1">col</span><span class="s2">++) {</span>
+                <span class="s0">int </span><span class="s1">x </span><span class="s2">= </span><span class="s1">col </span><span class="s2">* </span><span class="s1">tileWidth</span><span class="s2">;</span>
+                <span class="s0">int </span><span class="s1">y </span><span class="s2">= </span><span class="s1">row </span><span class="s2">* </span><span class="s1">tileHeight</span><span class="s2">;</span>
+                <span class="s1">g2d</span><span class="s2">.</span><span class="s1">drawImage</span><span class="s2">(</span><span class="s1">floor</span><span class="s2">, </span><span class="s1">x</span><span class="s2">, </span><span class="s1">y</span><span class="s2">, </span><span class="s1">tileWidth</span><span class="s2">, </span><span class="s1">tileHeight</span><span class="s2">, </span><span class="s0">null</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Shelf shelf </span><span class="s2">: </span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">shelves</span><span class="s2">) {</span>
+            <span class="s1">Location loc </span><span class="s2">= </span><span class="s1">shelf</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">();</span>
+            <span class="s0">int </span><span class="s1">x </span><span class="s2">= </span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() * </span><span class="s1">tileWidth</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">y </span><span class="s2">= </span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() * </span><span class="s1">tileHeight</span><span class="s2">;</span>
+            <span class="s1">g2d</span><span class="s2">.</span><span class="s1">drawImage</span><span class="s2">(</span><span class="s1">shelfImage</span><span class="s2">, </span><span class="s1">x</span><span class="s2">, </span><span class="s1">y</span><span class="s2">, </span><span class="s1">tileWidth</span><span class="s2">, </span><span class="s1">tileHeight</span><span class="s2">, </span><span class="s0">null</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Bot bot </span><span class="s2">: </span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">bots</span><span class="s2">) {</span>
+            <span class="s1">Location loc </span><span class="s2">= </span><span class="s1">bot</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">();</span>
+            <span class="s0">int </span><span class="s1">botX </span><span class="s2">= </span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() * </span><span class="s1">tileWidth</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">botY </span><span class="s2">= </span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() * </span><span class="s1">tileHeight</span><span class="s2">;</span>
+            <span class="s1">g2d</span><span class="s2">.</span><span class="s1">drawImage</span><span class="s2">(</span><span class="s1">botImage</span><span class="s2">, </span><span class="s1">botX</span><span class="s2">, </span><span class="s1">botY</span><span class="s2">, </span><span class="s1">tileWidth</span><span class="s2">, </span><span class="s1">tileHeight</span><span class="s2">, </span><span class="s0">null</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

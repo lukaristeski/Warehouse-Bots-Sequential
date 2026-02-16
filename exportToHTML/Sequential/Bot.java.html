@@ -1,0 +1,205 @@
+<html>
+<head>
+<title>Bot.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Bot.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Sequential</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">LinkedList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Queue</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">Bot </span><span class="s2">{</span>
+
+    <span class="s0">public </span><span class="s1">Location location</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Queue</span><span class="s2">&lt;</span><span class="s1">Task</span><span class="s2">&gt; </span><span class="s1">tasks</span><span class="s2">;</span>
+
+    <span class="s0">private int </span><span class="s1">dir </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+
+    <span class="s0">private </span><span class="s1">Integer targetX </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Integer targetY </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Bot</span><span class="s2">(</span><span class="s1">Location start</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">location </span><span class="s2">= </span><span class="s1">start</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">tasks </span><span class="s2">= </span><span class="s0">new </span><span class="s1">LinkedList</span><span class="s2">&lt;&gt;();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Location getLocation</span><span class="s2">(){</span>
+        <span class="s0">return </span><span class="s1">location</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">addTask</span><span class="s2">(</span><span class="s1">Task task</span><span class="s2">) {</span>
+        <span class="s1">tasks</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">task</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Task getCurrentTask</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">tasks</span><span class="s2">.</span><span class="s1">peek</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">finishCurrentTask</span><span class="s2">() {</span>
+        <span class="s1">tasks</span><span class="s2">.</span><span class="s1">poll</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">hasTasks</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s2">!</span><span class="s1">tasks</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setTarget</span><span class="s2">(</span><span class="s0">int </span><span class="s1">x</span><span class="s2">, </span><span class="s0">int </span><span class="s1">y</span><span class="s2">) {</span>
+        <span class="s1">targetX </span><span class="s2">= </span><span class="s1">x</span><span class="s2">;</span>
+        <span class="s1">targetY </span><span class="s2">= </span><span class="s1">y</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">clearTarget</span><span class="s2">(){</span>
+        <span class="s1">targetX </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+        <span class="s1">targetY </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">hasTarget</span><span class="s2">(){</span>
+        <span class="s0">return </span><span class="s1">targetX </span><span class="s2">!= </span><span class="s0">null </span><span class="s2">&amp;&amp; </span><span class="s1">targetY </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">atTarget</span><span class="s2">(){</span>
+        <span class="s0">return </span><span class="s1">hasTarget</span><span class="s2">() &amp;&amp;</span>
+                <span class="s1">location</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() == </span><span class="s1">targetX </span><span class="s2">&amp;&amp;</span>
+                <span class="s1">location</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() == </span><span class="s1">targetY</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">step</span><span class="s2">(){</span>
+        <span class="s0">int</span><span class="s2">[][] </span><span class="s1">dirs </span><span class="s2">= {</span>
+                <span class="s2">{</span><span class="s3">1</span><span class="s2">,</span><span class="s3">0</span><span class="s2">},</span>
+                <span class="s2">{</span><span class="s3">0</span><span class="s2">,</span><span class="s3">1</span><span class="s2">},</span>
+                <span class="s2">{-</span><span class="s3">1</span><span class="s2">,</span><span class="s3">0</span><span class="s2">},</span>
+                <span class="s2">{</span><span class="s3">0</span><span class="s2">,-</span><span class="s3">1</span><span class="s2">},</span>
+        <span class="s2">};</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">tryMove</span><span class="s2">(</span><span class="s1">dirs</span><span class="s2">[</span><span class="s1">dir</span><span class="s2">][</span><span class="s3">0</span><span class="s2">],</span><span class="s1">dirs</span><span class="s2">[</span><span class="s1">dir</span><span class="s2">][</span><span class="s3">1</span><span class="s2">])){</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s3">4</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++){</span>
+            <span class="s1">dir </span><span class="s2">= (</span><span class="s1">dir </span><span class="s2">+ </span><span class="s3">1</span><span class="s2">) % </span><span class="s3">4</span><span class="s2">;</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">tryMove</span><span class="s2">(</span><span class="s1">dirs</span><span class="s2">[</span><span class="s1">dir</span><span class="s2">][</span><span class="s3">0</span><span class="s2">],</span><span class="s1">dirs</span><span class="s2">[</span><span class="s1">dir</span><span class="s2">][</span><span class="s3">1</span><span class="s2">])){</span>
+                <span class="s0">return</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">moveTowardTarget</span><span class="s2">(){</span>
+        <span class="s0">if </span><span class="s2">(!</span><span class="s1">hasTarget</span><span class="s2">()){</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">int </span><span class="s1">dx </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">compare</span><span class="s2">(</span><span class="s1">targetX</span><span class="s2">, </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">());</span>
+        <span class="s0">int </span><span class="s1">dy </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">compare</span><span class="s2">(</span><span class="s1">targetY</span><span class="s2">, </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">());</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">dx </span><span class="s2">!= </span><span class="s3">0 </span><span class="s2">&amp;&amp; </span><span class="s1">tryMove</span><span class="s2">(</span><span class="s1">dx</span><span class="s2">,</span><span class="s3">0</span><span class="s2">)){</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">dy </span><span class="s2">!= </span><span class="s3">0 </span><span class="s2">&amp;&amp; </span><span class="s1">tryMove</span><span class="s2">(</span><span class="s1">dy</span><span class="s2">,</span><span class="s3">0</span><span class="s2">)){</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">tryMove</span><span class="s2">(</span><span class="s3">0</span><span class="s2">,</span><span class="s3">1</span><span class="s2">)){</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">tryMove</span><span class="s2">(</span><span class="s3">1</span><span class="s2">,</span><span class="s3">0</span><span class="s2">)){</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">tryMove</span><span class="s2">(</span><span class="s3">0</span><span class="s2">,-</span><span class="s3">1</span><span class="s2">)){</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">tryMove</span><span class="s2">(</span><span class="s3">1</span><span class="s2">,-</span><span class="s3">1</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">tryMove</span><span class="s2">(</span><span class="s0">int </span><span class="s1">dx</span><span class="s2">, </span><span class="s0">int </span><span class="s1">dy</span><span class="s2">) {</span>
+        <span class="s0">int </span><span class="s1">nx </span><span class="s2">= </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() + </span><span class="s1">dx</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">ny </span><span class="s2">= </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() + </span><span class="s1">dy</span><span class="s2">;</span>
+
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;trying move to &quot; </span><span class="s2">+ </span><span class="s1">nx </span><span class="s2">+ </span><span class="s4">&quot;,&quot; </span><span class="s2">+ </span><span class="s1">ny</span><span class="s2">);</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">isWalkable</span><span class="s2">(</span><span class="s1">nx</span><span class="s2">, </span><span class="s1">ny</span><span class="s2">)) {</span>
+            <span class="s1">location</span><span class="s2">.</span><span class="s1">setX</span><span class="s2">(</span><span class="s1">nx</span><span class="s2">);</span>
+            <span class="s1">location</span><span class="s2">.</span><span class="s1">setY</span><span class="s2">(</span><span class="s1">ny</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;moved&quot;</span><span class="s2">);</span>
+            <span class="s0">return true</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;blocked&quot;</span><span class="s2">);</span>
+        <span class="s0">return false</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">update</span><span class="s2">(){</span>
+        <span class="s0">if </span><span class="s2">(!</span><span class="s1">hasTasks</span><span class="s2">()){</span>
+
+            <span class="s1">Task task </span><span class="s2">= </span><span class="s1">getCurrentTask</span><span class="s2">();</span>
+
+            <span class="s0">int </span><span class="s1">targetShelfX</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">targetShelfY</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">slot</span><span class="s2">;</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">task</span><span class="s2">.</span><span class="s1">getStage</span><span class="s2">() == </span><span class="s1">Task</span><span class="s2">.</span><span class="s1">Stage</span><span class="s2">.</span><span class="s1">PICKUP</span><span class="s2">){</span>
+                <span class="s1">targetShelfX </span><span class="s2">= </span><span class="s1">task</span><span class="s2">.</span><span class="s1">getPickupX</span><span class="s2">();</span>
+                <span class="s1">targetShelfY </span><span class="s2">= </span><span class="s1">task</span><span class="s2">.</span><span class="s1">getPickupY</span><span class="s2">();</span>
+                <span class="s1">slot </span><span class="s2">= </span><span class="s1">task</span><span class="s2">.</span><span class="s1">getPickupSlot</span><span class="s2">();</span>
+            <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">task</span><span class="s2">.</span><span class="s1">getStage</span><span class="s2">() == </span><span class="s1">Task</span><span class="s2">.</span><span class="s1">Stage</span><span class="s2">.</span><span class="s1">DROPOFF</span><span class="s2">) {</span>
+                <span class="s1">targetShelfX </span><span class="s2">= </span><span class="s1">task</span><span class="s2">.</span><span class="s1">getDropX</span><span class="s2">();</span>
+                <span class="s1">targetShelfY </span><span class="s2">= </span><span class="s1">task</span><span class="s2">.</span><span class="s1">getDropY</span><span class="s2">();</span>
+                <span class="s1">slot </span><span class="s2">= </span><span class="s1">task</span><span class="s2">.</span><span class="s1">getDropSlot</span><span class="s2">();</span>
+            <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                <span class="s1">finishCurrentTask</span><span class="s2">();</span>
+                <span class="s0">return</span><span class="s2">;</span>
+            <span class="s2">}</span>
+
+            <span class="s1">Location target </span><span class="s2">= </span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">getInteractionTile</span><span class="s2">(</span><span class="s1">targetShelfX</span><span class="s2">, </span><span class="s1">targetShelfY</span><span class="s2">);</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">target </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span class="s0">return</span><span class="s2">;</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">location</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() == </span><span class="s1">target</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() &amp;&amp; </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() == </span><span class="s1">target</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">()){</span>
+
+                <span class="s1">Shelf shelf </span><span class="s2">= </span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">getShelByShelfGrid</span><span class="s2">(</span><span class="s1">targetShelfX</span><span class="s2">,</span><span class="s1">targetShelfY</span><span class="s2">);</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">shelf </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span class="s0">return</span><span class="s2">;</span>
+
+                <span class="s0">boolean </span><span class="s1">ok</span><span class="s2">;</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">task</span><span class="s2">.</span><span class="s1">getStage</span><span class="s2">() == </span><span class="s1">Task</span><span class="s2">.</span><span class="s1">Stage</span><span class="s2">.</span><span class="s1">PICKUP</span><span class="s2">){</span>
+                    <span class="s1">ok </span><span class="s2">= </span><span class="s1">shelf</span><span class="s2">.</span><span class="s1">pick</span><span class="s2">(</span><span class="s1">slot</span><span class="s2">);</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">ok</span><span class="s2">) </span><span class="s1">task</span><span class="s2">.</span><span class="s1">advance</span><span class="s2">();</span>
+                <span class="s2">}</span><span class="s0">else </span><span class="s2">{</span>
+                    <span class="s1">ok </span><span class="s2">= </span><span class="s1">shelf</span><span class="s2">.</span><span class="s1">drop</span><span class="s2">(</span><span class="s1">slot</span><span class="s2">);</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">ok</span><span class="s2">) </span><span class="s1">task</span><span class="s2">.</span><span class="s1">advance</span><span class="s2">();</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">task</span><span class="s2">.</span><span class="s1">isDone</span><span class="s2">()) </span><span class="s1">finishCurrentTask</span><span class="s2">();</span>
+                <span class="s2">}</span>
+                <span class="s0">return</span><span class="s2">;</span>
+            <span class="s2">}</span>
+
+            <span class="s0">int </span><span class="s1">dx </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">compare</span><span class="s2">(</span><span class="s1">target</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">(), </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">());</span>
+            <span class="s0">int </span><span class="s1">dy </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">compare</span><span class="s2">(</span><span class="s1">target</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">(), </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">());</span>
+
+            <span class="s0">int </span><span class="s1">nextX </span><span class="s2">= </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() + </span><span class="s1">dx</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">nextY </span><span class="s2">= </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() + </span><span class="s1">dy</span><span class="s2">;</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">dx </span><span class="s2">!= </span><span class="s3">0 </span><span class="s2">&amp;&amp; !</span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">isOccupied</span><span class="s2">(</span><span class="s1">nextX</span><span class="s2">,</span><span class="s1">nextY</span><span class="s2">)){</span>
+                <span class="s1">location</span><span class="s2">.</span><span class="s1">setX</span><span class="s2">(</span><span class="s1">nextX</span><span class="s2">);</span>
+                <span class="s0">return</span><span class="s2">;</span>
+            <span class="s2">}</span>
+
+            <span class="s1">nextX </span><span class="s2">= </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">();</span>
+            <span class="s1">nextY </span><span class="s2">= </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() + </span><span class="s1">dy</span><span class="s2">;</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">dy </span><span class="s2">!= </span><span class="s3">0 </span><span class="s2">&amp;&amp; !</span><span class="s1">GameState</span><span class="s2">.</span><span class="s1">isOccupied</span><span class="s2">(</span><span class="s1">nextX</span><span class="s2">,</span><span class="s1">nextY</span><span class="s2">)){</span>
+                <span class="s1">location</span><span class="s2">.</span><span class="s1">setY</span><span class="s2">(</span><span class="s1">nextY</span><span class="s2">);</span>
+            <span class="s2">}</span>
+
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

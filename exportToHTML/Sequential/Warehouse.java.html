@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>Warehouse.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Warehouse.java</font>
+</center></td></tr></table>
+<pre><span class="s0">//package Sequential;</span>
+<span class="s0">//</span>
+<span class="s0">//import java.awt.*;</span>
+<span class="s0">//import java.util.ArrayList;</span>
+<span class="s0">//import java.util.List;</span>
+<span class="s0">//</span>
+<span class="s0">//public class Warehouse {</span>
+<span class="s0">//</span>
+<span class="s0">//    private final int shelfCols;</span>
+<span class="s0">//    private final int shelfRows;</span>
+<span class="s0">//</span>
+<span class="s0">//    private final int width;</span>
+<span class="s0">//    private final int height;</span>
+<span class="s0">//</span>
+<span class="s0">//    private final boolean[][] isShelf;</span>
+<span class="s0">//</span>
+<span class="s0">//    private final Shelf[][] shelves;</span>
+<span class="s0">//    private final boolean[][] passable;</span>
+<span class="s0">//    List&lt;Point&gt; passableTiles;</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//    public Warehouse(int shelfCols, int shelfRows) {</span>
+<span class="s0">//        this.shelfCols = shelfCols;</span>
+<span class="s0">//        this.shelfRows = shelfRows;</span>
+<span class="s0">//</span>
+<span class="s0">//        width = shelfCols + (shelfCols - 1);</span>
+<span class="s0">//        height = shelfRows + (shelfRows - 1);</span>
+<span class="s0">//</span>
+<span class="s0">//        isShelf = new boolean[width][height];</span>
+<span class="s0">//        passable = new boolean[width][height];</span>
+<span class="s0">//</span>
+<span class="s0">//        shelves = new Shelf[shelfCols][shelfRows];</span>
+<span class="s0">//</span>
+<span class="s0">//        for (int sx = 0; sx &lt; shelfCols; sx++){</span>
+<span class="s0">//            for (int sy = 0; sy &lt; shelfRows; sy++){</span>
+<span class="s0">//</span>
+<span class="s0">//                int tileX = sx * 2;</span>
+<span class="s0">//                int tileY = sy * 2;</span>
+<span class="s0">//                isShelf[tileX][tileY] = true;</span>
+<span class="s0">//                shelves[sx][sy] = new Shelf(sx,sy);</span>
+<span class="s0">//            }</span>
+<span class="s0">//        }</span>
+<span class="s0">//        for (int x = 0; x &lt; width; x++){</span>
+<span class="s0">//            for (int y = 0; y &lt; height; y++){</span>
+<span class="s0">//                if (isShelf[x][y]){</span>
+<span class="s0">//                    passable[x][y] = false;</span>
+<span class="s0">//                }else {</span>
+<span class="s0">//                    passable[x][y] = true;</span>
+<span class="s0">//                }</span>
+<span class="s0">//            }</span>
+<span class="s0">//        }</span>
+<span class="s0">//</span>
+<span class="s0">//        passableTiles = new ArrayList&lt;&gt;();</span>
+<span class="s0">//        for (int x = 0; x &lt; width; x++){</span>
+<span class="s0">//            for (int y = 0; y &lt; height; y++){</span>
+<span class="s0">//                if (passable[x][y]){</span>
+<span class="s0">//                    passableTiles.add(new Point(x, y));</span>
+<span class="s0">//                }</span>
+<span class="s0">//            }</span>
+<span class="s0">//        }</span>
+<span class="s0">//</span>
+<span class="s0">//    }</span>
+<span class="s0">//    public Point getInteractionTile(int shelfx, int shelfy) {</span>
+<span class="s0">//</span>
+<span class="s0">//        int tileX = shelfx * 2;</span>
+<span class="s0">//        int tileY = shelfy * 2;</span>
+<span class="s0">//</span>
+<span class="s0">//        Point[] neighbors ={</span>
+<span class="s0">//            new Point(tileX + 1, tileY),</span>
+<span class="s0">//            new Point(tileX - 1, tileY),</span>
+<span class="s0">//            new Point(tileX, tileY + 1),</span>
+<span class="s0">//            new Point(tileX, tileY - 1)</span>
+<span class="s0">//    };</span>
+<span class="s0">//</span>
+<span class="s0">//        for (Point next : neighbors){</span>
+<span class="s0">//</span>
+<span class="s0">//            int x = next.x;</span>
+<span class="s0">//            int y = next.y;</span>
+<span class="s0">//</span>
+<span class="s0">//            if (x &lt; 0 || y &lt; 0 || x &gt;= width || y &gt;= height){</span>
+<span class="s0">//                continue;</span>
+<span class="s0">//            }</span>
+<span class="s0">//            if (passable[x][y]){</span>
+<span class="s0">//                return next;</span>
+<span class="s0">//            }</span>
+<span class="s0">//        }</span>
+<span class="s0">//        return null;</span>
+<span class="s0">//    }</span>
+<span class="s0">//</span>
+<span class="s0">//    public int getWidth(){</span>
+<span class="s0">//        return width;</span>
+<span class="s0">//    }</span>
+<span class="s0">//    public int getHeight(){</span>
+<span class="s0">//        return height;</span>
+<span class="s0">//    }</span>
+<span class="s0">//</span>
+<span class="s0">//    public boolean isShelfAt(int x, int y){</span>
+<span class="s0">//        return isShelf[x][y];</span>
+<span class="s0">//    }</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//}</span>
+</pre>
+</body>
+</html>

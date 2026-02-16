@@ -1,0 +1,164 @@
+<html>
+<head>
+<title>GameState.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GameState.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Sequential</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Locale</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">GameState </span><span class="s2">{</span>
+
+    <span class="s0">public static int </span><span class="s1">WIDTH</span><span class="s2">;</span>
+    <span class="s0">public static int </span><span class="s1">HEIGHT</span><span class="s2">;</span>
+
+    <span class="s0">public static </span><span class="s1">ArrayList</span><span class="s2">&lt;</span><span class="s1">Bot</span><span class="s2">&gt; </span><span class="s1">bots</span><span class="s2">;</span>
+    <span class="s0">public static </span><span class="s1">ArrayList</span><span class="s2">&lt;</span><span class="s1">Shelf</span><span class="s2">&gt; </span><span class="s1">shelves</span><span class="s2">;</span>
+
+    <span class="s0">private static final int </span><span class="s1">MAX_BOTS </span><span class="s2">= </span><span class="s3">5</span><span class="s2">;</span>
+
+    <span class="s0">public static </span><span class="s1">Bot getBot</span><span class="s2">(</span><span class="s0">int </span><span class="s1">index</span><span class="s2">) {</span>
+        <span class="s0">return </span><span class="s1">bots</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">index</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static boolean </span><span class="s1">isInside</span><span class="s2">(</span><span class="s0">int </span><span class="s1">x</span><span class="s2">, </span><span class="s0">int </span><span class="s1">y</span><span class="s2">) {</span>
+        <span class="s0">return </span><span class="s1">x </span><span class="s2">&gt;= </span><span class="s3">0 </span><span class="s2">&amp;&amp; </span><span class="s1">x </span><span class="s2">&lt; </span><span class="s1">WIDTH </span><span class="s2">&amp;&amp; </span><span class="s1">y </span><span class="s2">&gt;= </span><span class="s3">0 </span><span class="s2">&amp;&amp; </span><span class="s1">y </span><span class="s2">&lt; </span><span class="s1">HEIGHT</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static boolean </span><span class="s1">isWalkable</span><span class="s2">(</span><span class="s0">int </span><span class="s1">x</span><span class="s2">, </span><span class="s0">int </span><span class="s1">y</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(!</span><span class="s1">isInside</span><span class="s2">(</span><span class="s1">x</span><span class="s2">, </span><span class="s1">y</span><span class="s2">)) </span><span class="s0">return false</span><span class="s2">;</span>
+        <span class="s0">return </span><span class="s2">!</span><span class="s1">isOccupied</span><span class="s2">(</span><span class="s1">x</span><span class="s2">,</span><span class="s1">y</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static boolean </span><span class="s1">isOccupied</span><span class="s2">(</span><span class="s0">int </span><span class="s1">x</span><span class="s2">, </span><span class="s0">int </span><span class="s1">y</span><span class="s2">) {</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">shelves </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span class="s0">return false</span><span class="s2">;</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Shelf shelf </span><span class="s2">: </span><span class="s1">shelves</span><span class="s2">) {</span>
+            <span class="s1">Location loc </span><span class="s2">= </span><span class="s1">shelf</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">();</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() == </span><span class="s1">x </span><span class="s2">&amp;&amp; </span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() == </span><span class="s1">y</span><span class="s2">) {</span>
+                <span class="s0">return true</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Bot bot </span><span class="s2">: </span><span class="s1">bots</span><span class="s2">) {</span>
+            <span class="s1">Location loc </span><span class="s2">= </span><span class="s1">bot</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">();</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() == </span><span class="s1">x </span><span class="s2">&amp;&amp; </span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() == </span><span class="s1">y</span><span class="s2">) {</span>
+                <span class="s0">return true</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return false</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">initShelves</span><span class="s2">(</span><span class="s0">int </span><span class="s1">shelfCols</span><span class="s2">, </span><span class="s0">int </span><span class="s1">shelfRows</span><span class="s2">) {</span>
+        <span class="s1">shelves </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">sy </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">sy </span><span class="s2">&lt; </span><span class="s1">shelfRows</span><span class="s2">; </span><span class="s1">sy</span><span class="s2">++){</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">sx </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">sx </span><span class="s2">&lt; </span><span class="s1">shelfCols</span><span class="s2">; </span><span class="s1">sx</span><span class="s2">++){</span>
+                <span class="s0">int </span><span class="s1">tileX </span><span class="s2">= </span><span class="s1">sx </span><span class="s2">* </span><span class="s3">2</span><span class="s2">;</span>
+                <span class="s0">int </span><span class="s1">tileY </span><span class="s2">= </span><span class="s1">sy </span><span class="s2">* </span><span class="s3">2</span><span class="s2">;</span>
+                <span class="s1">shelves</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Shelf</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Location</span><span class="s2">(</span><span class="s1">tileX</span><span class="s2">, </span><span class="s1">tileY</span><span class="s2">)));</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+        <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">spawnBotIfPossible</span><span class="s2">(){</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">bots</span><span class="s2">.</span><span class="s1">size</span><span class="s2">() &gt;= </span><span class="s1">MAX_BOTS</span><span class="s2">) </span><span class="s0">return</span><span class="s2">;</span>
+
+        <span class="s0">if </span><span class="s2">(!</span><span class="s1">isOccupied</span><span class="s2">(</span><span class="s3">0</span><span class="s2">,</span><span class="s3">0</span><span class="s2">)){</span>
+            <span class="s1">bots</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Bot</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Location</span><span class="s2">(</span><span class="s3">0</span><span class="s2">,</span><span class="s3">2</span><span class="s2">)));</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">update</span><span class="s2">(){</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;update&quot;</span><span class="s2">);</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Bot bot </span><span class="s2">: </span><span class="s1">bots</span><span class="s2">){</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">bot</span><span class="s2">.</span><span class="s1">atTarget</span><span class="s2">()){</span>
+                <span class="s1">bot</span><span class="s2">.</span><span class="s1">finishCurrentTask</span><span class="s2">();</span>
+                <span class="s1">bot</span><span class="s2">.</span><span class="s1">clearTarget</span><span class="s2">();</span>
+            <span class="s2">}</span>
+
+            <span class="s0">if </span><span class="s2">(!</span><span class="s1">bot</span><span class="s2">.</span><span class="s1">hasTarget</span><span class="s2">() &amp;&amp; </span><span class="s1">bot</span><span class="s2">.</span><span class="s1">hasTasks</span><span class="s2">()){</span>
+                <span class="s1">Task t </span><span class="s2">= </span><span class="s1">bot</span><span class="s2">.</span><span class="s1">getCurrentTask</span><span class="s2">();</span>
+                <span class="s1">bot</span><span class="s2">.</span><span class="s1">setTarget</span><span class="s2">(</span><span class="s1">t</span><span class="s2">.</span><span class="s1">getPickupX</span><span class="s2">(), </span><span class="s1">t</span><span class="s2">.</span><span class="s1">getPickupY</span><span class="s2">());</span>
+            <span class="s2">}</span>
+            <span class="s1">bot</span><span class="s2">.</span><span class="s1">moveTowardTarget</span><span class="s2">();</span>
+        <span class="s2">}</span>
+        <span class="s1">spawnBotIfPossible</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static </span><span class="s1">Shelf getShelByShelfGrid</span><span class="s2">(</span><span class="s0">int </span><span class="s1">shelfX</span><span class="s2">, </span><span class="s0">int </span><span class="s1">shelfY</span><span class="s2">){</span>
+        <span class="s0">int </span><span class="s1">tileX </span><span class="s2">= </span><span class="s1">shelfX </span><span class="s2">* </span><span class="s3">2</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">tileY </span><span class="s2">= </span><span class="s1">shelfY </span><span class="s2">* </span><span class="s3">2</span><span class="s2">;</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Shelf shelf </span><span class="s2">: </span><span class="s1">shelves</span><span class="s2">) {</span>
+            <span class="s1">Location loc </span><span class="s2">= </span><span class="s1">shelf</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">();</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() == </span><span class="s1">tileX </span><span class="s2">&amp;&amp; </span><span class="s1">loc</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() == </span><span class="s1">tileY</span><span class="s2">){</span>
+                <span class="s0">return </span><span class="s1">shelf</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return null</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static </span><span class="s1">Location getInteractionTileForShelf</span><span class="s2">(</span><span class="s0">int </span><span class="s1">shelfTileX</span><span class="s2">, </span><span class="s0">int </span><span class="s1">shelfTileY</span><span class="s2">){</span>
+        <span class="s0">int</span><span class="s2">[][] </span><span class="s1">dirs </span><span class="s2">= {{</span><span class="s3">0</span><span class="s2">, </span><span class="s3">1</span><span class="s2">}, {</span><span class="s3">1</span><span class="s2">, </span><span class="s3">0</span><span class="s2">}, {</span><span class="s3">0</span><span class="s2">, -</span><span class="s3">1</span><span class="s2">}, {-</span><span class="s3">1</span><span class="s2">, </span><span class="s3">0</span><span class="s2">}};</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int</span><span class="s2">[] </span><span class="s1">d </span><span class="s2">: </span><span class="s1">dirs</span><span class="s2">){</span>
+            <span class="s0">int </span><span class="s1">nx </span><span class="s2">= </span><span class="s1">shelfTileX </span><span class="s2">+ </span><span class="s1">d</span><span class="s2">[</span><span class="s3">0</span><span class="s2">];</span>
+            <span class="s0">int </span><span class="s1">ny </span><span class="s2">= </span><span class="s1">shelfTileY </span><span class="s2">+ </span><span class="s1">d</span><span class="s2">[</span><span class="s3">1</span><span class="s2">];</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">nx </span><span class="s2">&lt; </span><span class="s3">0 </span><span class="s2">|| </span><span class="s1">ny </span><span class="s2">&lt; </span><span class="s3">0 </span><span class="s2">|| </span><span class="s1">nx </span><span class="s2">&gt;= </span><span class="s1">WIDTH </span><span class="s2">|| </span><span class="s1">ny </span><span class="s2">&gt;= </span><span class="s1">HEIGHT</span><span class="s2">) </span><span class="s0">continue</span><span class="s2">;</span>
+
+            <span class="s0">boolean </span><span class="s1">blockedByShelf </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">Shelf s </span><span class="s2">: </span><span class="s1">shelves</span><span class="s2">){</span>
+                <span class="s1">Location l </span><span class="s2">= </span><span class="s1">s</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">();</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">l</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() == </span><span class="s1">nx </span><span class="s2">&amp;&amp; </span><span class="s1">l</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() == </span><span class="s1">ny</span><span class="s2">){</span>
+                    <span class="s1">blockedByShelf </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">blockedByShelf</span><span class="s2">) {</span>
+                <span class="s0">return new </span><span class="s1">Location</span><span class="s2">(</span><span class="s1">nx</span><span class="s2">, </span><span class="s1">ny</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return null</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static </span><span class="s1">Location getInteractionTile</span><span class="s2">(</span><span class="s0">int </span><span class="s1">shelfX</span><span class="s2">, </span><span class="s0">int </span><span class="s1">shelfY</span><span class="s2">){</span>
+        <span class="s0">int </span><span class="s1">tileX </span><span class="s2">= </span><span class="s1">shelfX </span><span class="s2">* </span><span class="s3">2</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">tileY </span><span class="s2">= </span><span class="s1">shelfY </span><span class="s2">* </span><span class="s3">2</span><span class="s2">;</span>
+        <span class="s0">return </span><span class="s1">getInteractionTileForShelf</span><span class="s2">(</span><span class="s1">tileX</span><span class="s2">, </span><span class="s1">tileY</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static </span><span class="s1">Location findFreeTile</span><span class="s2">(){</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">y </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">y </span><span class="s2">&lt; </span><span class="s1">HEIGHT</span><span class="s2">; </span><span class="s1">y</span><span class="s2">++) {</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">x </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">x </span><span class="s2">&lt; </span><span class="s1">WIDTH</span><span class="s2">; </span><span class="s1">x</span><span class="s2">++) {</span>
+                <span class="s0">if </span><span class="s2">(!</span><span class="s1">isOccupied</span><span class="s2">(</span><span class="s1">x</span><span class="s2">, </span><span class="s1">y</span><span class="s2">)) </span><span class="s0">return new </span><span class="s1">Location</span><span class="s2">(</span><span class="s1">x</span><span class="s2">, </span><span class="s1">y</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return new </span><span class="s1">Location</span><span class="s2">(</span><span class="s3">0</span><span class="s2">,</span><span class="s3">0</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+
+<span class="s2">}</span>
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>Shelf.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Shelf.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Sequential</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">Shelf</span><span class="s2">{</span>
+
+    <span class="s0">private </span><span class="s1">Location location</span><span class="s2">;</span>
+    <span class="s0">private boolean</span><span class="s2">[][] </span><span class="s1">slots</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Shelf</span><span class="s2">(</span><span class="s1">Location location</span><span class="s2">){</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">location </span><span class="s2">= </span><span class="s1">location</span><span class="s2">;</span>
+        <span class="s1">slots </span><span class="s2">= </span><span class="s0">new boolean</span><span class="s2">[</span><span class="s3">2</span><span class="s2">][</span><span class="s3">8</span><span class="s2">];</span>
+
+        <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">r </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">r </span><span class="s2">&lt; </span><span class="s3">2</span><span class="s2">; </span><span class="s1">r</span><span class="s2">++){</span>
+            <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">c </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">c </span><span class="s2">&lt; </span><span class="s3">8</span><span class="s2">; </span><span class="s1">c</span><span class="s2">++){</span>
+                <span class="s1">slots</span><span class="s2">[</span><span class="s1">r</span><span class="s2">][</span><span class="s1">c</span><span class="s2">] = </span><span class="s0">true</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Location getLocation</span><span class="s2">(){</span>
+        <span class="s0">return </span><span class="s1">location</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private int </span><span class="s1">slotRow</span><span class="s2">(</span><span class="s0">int </span><span class="s1">slot</span><span class="s2">){</span>
+        <span class="s0">return </span><span class="s1">slot </span><span class="s2">/ </span><span class="s3">8</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private int </span><span class="s1">slotCol</span><span class="s2">(</span><span class="s0">int </span><span class="s1">slot</span><span class="s2">){</span>
+        <span class="s0">return </span><span class="s1">slot </span><span class="s2">% </span><span class="s3">8</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">hasItem</span><span class="s2">(</span><span class="s0">int </span><span class="s1">slot</span><span class="s2">){</span>
+        <span class="s0">int </span><span class="s1">r </span><span class="s2">= </span><span class="s1">slotRow</span><span class="s2">(</span><span class="s1">slot</span><span class="s2">);</span>
+        <span class="s0">int </span><span class="s1">c </span><span class="s2">= </span><span class="s1">slotCol</span><span class="s2">(</span><span class="s1">slot</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">slots</span><span class="s2">[</span><span class="s1">r</span><span class="s2">][</span><span class="s1">c</span><span class="s2">];</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">pick</span><span class="s2">(</span><span class="s0">int </span><span class="s1">slot</span><span class="s2">){</span>
+        <span class="s0">int </span><span class="s1">r </span><span class="s2">= </span><span class="s1">slotRow</span><span class="s2">(</span><span class="s1">slot</span><span class="s2">);</span>
+        <span class="s0">int </span><span class="s1">c </span><span class="s2">= </span><span class="s1">slotCol</span><span class="s2">(</span><span class="s1">slot</span><span class="s2">);</span>
+
+        <span class="s0">if </span><span class="s2">(!</span><span class="s1">slots</span><span class="s2">[</span><span class="s1">r</span><span class="s2">][</span><span class="s1">c</span><span class="s2">]){</span>
+            <span class="s0">return false</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">slots</span><span class="s2">[</span><span class="s1">r</span><span class="s2">][</span><span class="s1">c</span><span class="s2">] = </span><span class="s0">false</span><span class="s2">;</span>
+        <span class="s0">return true</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">drop</span><span class="s2">(</span><span class="s0">int </span><span class="s1">slot</span><span class="s2">){</span>
+        <span class="s0">int </span><span class="s1">r </span><span class="s2">= </span><span class="s1">slotRow</span><span class="s2">(</span><span class="s1">slot</span><span class="s2">);</span>
+        <span class="s0">int </span><span class="s1">c </span><span class="s2">= </span><span class="s1">slotCol</span><span class="s2">(</span><span class="s1">slot</span><span class="s2">);</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">slots</span><span class="s2">[</span><span class="s1">r</span><span class="s2">][</span><span class="s1">c</span><span class="s2">]){</span>
+            <span class="s0">return false</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">slots</span><span class="s2">[</span><span class="s1">r</span><span class="s2">][</span><span class="s1">c</span><span class="s2">] = </span><span class="s0">true</span><span class="s2">;</span>
+        <span class="s0">return true</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+<span class="s2">}</span></pre>
+</body>
+</html>

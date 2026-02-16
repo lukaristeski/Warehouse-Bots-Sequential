@@ -1,0 +1,120 @@
+<html>
+<head>
+<title>WarehousePanel.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+WarehousePanel.java</font>
+</center></td></tr></table>
+<pre><span class="s0">//package Sequential;</span>
+<span class="s0">//</span>
+<span class="s0">//import javax.swing.*;</span>
+<span class="s0">//import java.awt.*;</span>
+<span class="s0">//</span>
+<span class="s0">//public class WarehousePanel extends JPanel {</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//    int rows = 10;</span>
+<span class="s0">//    int cols = 29;</span>
+<span class="s0">//    int tileSize = 40;</span>
+<span class="s0">//</span>
+<span class="s0">//    int[][] grid;</span>
+<span class="s0">//    SimpleBot bot;</span>
+<span class="s0">//</span>
+<span class="s0">//    public WarehousePanel() {</span>
+<span class="s0">//        setPreferredSize(new Dimension(cols * tileSize, rows *tileSize));</span>
+<span class="s0">//        grid = new int[rows][cols];</span>
+<span class="s0">//</span>
+<span class="s0">//        simpleBot = new SimpleBot(1, new Point(0,0),false,null);</span>
+<span class="s0">//</span>
+<span class="s0">//        addMouseListener(new java.awt.event.MouseAdapter() {</span>
+<span class="s0">//            public void mouseClicked(java.awt.event.MouseEvent e) {</span>
+<span class="s0">//                int r = e.getX() / tileSize;</span>
+<span class="s0">//                int c = e.getY() / tileSize;</span>
+<span class="s0">//                bot.goTo(new Point(r, c), WarehousePanel.this);</span>
+<span class="s0">//            }</span>
+<span class="s0">//        });</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//        generateWarehouse();</span>
+<span class="s0">//        startBotTimer();</span>
+<span class="s0">//    }</span>
+<span class="s0">//</span>
+<span class="s0">//    private void startBotTimer(){</span>
+<span class="s0">//        Timer t = new Timer(300, e -&gt; {</span>
+<span class="s0">//            if (bot.col &lt; cols - 1){</span>
+<span class="s0">//                bot.move(0,1);</span>
+<span class="s0">//            }else {</span>
+<span class="s0">//                bot.col = 0;</span>
+<span class="s0">//            }</span>
+<span class="s0">//            repaint();</span>
+<span class="s0">//        });</span>
+<span class="s0">//        t.start();</span>
+<span class="s0">//    }</span>
+<span class="s0">//</span>
+<span class="s0">//    private void generateWarehouse() {</span>
+<span class="s0">//        for (int r = 0; r &lt; rows; r++) {</span>
+<span class="s0">//            for (int c = 0; c &lt; cols; c++) {</span>
+<span class="s0">//                grid[r][c] = 0;</span>
+<span class="s0">//            }</span>
+<span class="s0">//        }</span>
+<span class="s0">//        int shelfH = 2;</span>
+<span class="s0">//        int shelfW = 6;</span>
+<span class="s0">//        int aisle = 1;</span>
+<span class="s0">//</span>
+<span class="s0">//        for (int r = 1; r + shelfH &lt; rows; r += shelfH + aisle){</span>
+<span class="s0">//            for (int c = 1; c + shelfW &lt; cols; c += shelfW + aisle){</span>
+<span class="s0">//                for (int sr = r; sr &lt; r + shelfH; sr ++){</span>
+<span class="s0">//                    for (int sc = c; sc &lt; c + shelfW; sc ++){</span>
+<span class="s0">//                        grid[sr][sc] = 1;</span>
+<span class="s0">//                    }</span>
+<span class="s0">//                }</span>
+<span class="s0">//            }</span>
+<span class="s0">//        }</span>
+<span class="s0">//    }</span>
+<span class="s0">//</span>
+<span class="s0">//    protected void paintComponent(Graphics g) {</span>
+<span class="s0">//        super.paintComponent(g);</span>
+<span class="s0">//        for (int r = 0; r &lt; rows; r++) {</span>
+<span class="s0">//            for (int c = 0; c &lt; cols; c++) {</span>
+<span class="s0">//</span>
+<span class="s0">//                if (grid[r][c] == 0) {</span>
+<span class="s0">//                    g.setColor(Color.lightGray);</span>
+<span class="s0">//                }else{</span>
+<span class="s0">//                    g.setColor(Color.pink);</span>
+<span class="s0">//                }</span>
+<span class="s0">//                g.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);</span>
+<span class="s0">//</span>
+<span class="s0">//                g.setColor(Color.BLACK);</span>
+<span class="s0">//                g.drawRect(c * tileSize, r * tileSize, tileSize, tileSize);</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//            }</span>
+<span class="s0">//        }</span>
+<span class="s0">//        bot.draw(g,tileSize);</span>
+<span class="s0">//    }</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//    public boolean isWalkable(int r, int c){</span>
+<span class="s0">//        if (r &lt; 0 || c &lt; 0 || r &gt;= rows || c &gt;= cols) {</span>
+<span class="s0">//            return false;</span>
+<span class="s0">//        }</span>
+<span class="s0">//        return grid[r][c] == 1;</span>
+<span class="s0">//    }</span>
+<span class="s0">//</span>
+<span class="s0">//    SimpleBot simpleBot;</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//}</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+</pre>
+</body>
+</html>

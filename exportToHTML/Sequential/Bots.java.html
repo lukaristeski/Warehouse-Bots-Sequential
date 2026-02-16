@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>Bots.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Bots.java</font>
+</center></td></tr></table>
+<pre><span class="s0">//package Sequential;</span>
+<span class="s0">//</span>
+<span class="s0">//import java.awt.*;</span>
+<span class="s0">//import java.nio.file.Path;</span>
+<span class="s0">//import java.util.LinkedList;</span>
+<span class="s0">//import java.util.List;</span>
+<span class="s0">//import java.util.Queue;</span>
+<span class="s0">//</span>
+<span class="s0">//public class Bots {</span>
+<span class="s0">//    private final int ID;</span>
+<span class="s0">//    private Point position;</span>
+<span class="s0">//    private boolean carrying;</span>
+<span class="s0">//    private List&lt;Task&gt; taskList;</span>
+<span class="s0">//    private Queue&lt;Point&gt; path;</span>
+<span class="s0">//    private Warehouse warehouse;</span>
+<span class="s0">//</span>
+<span class="s0">//    public Bots(int ID, Point startPos, boolean carrying, Warehouse warehouse) {</span>
+<span class="s0">//        this.ID = ID;</span>
+<span class="s0">//        this.position = startPos;</span>
+<span class="s0">//        this.carrying = carrying;</span>
+<span class="s0">//        this.taskList = new LinkedList&lt;&gt;();</span>
+<span class="s0">//        this.path = new LinkedList&lt;&gt;();</span>
+<span class="s0">//        this.warehouse = warehouse;</span>
+<span class="s0">//    }</span>
+<span class="s0">//    public int getID() {</span>
+<span class="s0">//        return ID;</span>
+<span class="s0">//    }</span>
+<span class="s0">//    public Point getPosition() {</span>
+<span class="s0">//        return position;</span>
+<span class="s0">//    }</span>
+<span class="s0">//    public void setPosition(Point p) {</span>
+<span class="s0">//        this.position = p;</span>
+<span class="s0">//    }</span>
+<span class="s0">//    public void setPath(List&lt;Point&gt; path) {</span>
+<span class="s0">//        this.path.clear();</span>
+<span class="s0">//        this.path.addAll(path);</span>
+<span class="s0">//    }</span>
+<span class="s0">//    public void tick(){</span>
+<span class="s0">//        if (!path.isEmpty()) {</span>
+<span class="s0">//            Point next = path.remove();</span>
+<span class="s0">//            this.position = next;</span>
+<span class="s0">//        }</span>
+<span class="s0">//    }</span>
+<span class="s0">//    public void goTo(Point target, WarehousePanel map) {</span>
+<span class="s0">//        List&lt;Point&gt; p = Pathfinder.findPath(map, position, target);</span>
+<span class="s0">//        setPath(p);</span>
+<span class="s0">//    }</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//</span>
+<span class="s0">//}</span>
+<span class="s0">//</span>
+</pre>
+</body>
+</html>

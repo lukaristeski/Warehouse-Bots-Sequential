@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>Task.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Task.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Sequential</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">Task </span><span class="s2">{</span>
+
+    <span class="s0">public enum </span><span class="s1">Stage </span><span class="s2">{</span>
+        <span class="s1">PICKUP</span><span class="s2">,</span>
+        <span class="s1">DROPOFF</span><span class="s2">,</span>
+        <span class="s1">DONE</span><span class="s2">,</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private final int </span><span class="s1">pickupX</span><span class="s2">;</span>
+    <span class="s0">private final int </span><span class="s1">pickupY</span><span class="s2">;</span>
+    <span class="s0">private final int </span><span class="s1">pickupSlot</span><span class="s2">;</span>
+
+    <span class="s0">private final int </span><span class="s1">dropX</span><span class="s2">;</span>
+    <span class="s0">private final int </span><span class="s1">dropY</span><span class="s2">;</span>
+    <span class="s0">private final int </span><span class="s1">dropSlot</span><span class="s2">;</span>
+
+    <span class="s0">private </span><span class="s1">Stage stage</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Task</span><span class="s2">(</span><span class="s0">int </span><span class="s1">pickupX</span><span class="s2">, </span><span class="s0">int </span><span class="s1">pickupY</span><span class="s2">, </span><span class="s0">int </span><span class="s1">pickupSlot</span><span class="s2">, </span><span class="s0">int </span><span class="s1">dropX</span><span class="s2">, </span><span class="s0">int </span><span class="s1">dropY</span><span class="s2">, </span><span class="s0">int </span><span class="s1">dropSlot</span><span class="s2">) {</span>
+
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">pickupX </span><span class="s2">= </span><span class="s1">pickupX</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">pickupY </span><span class="s2">= </span><span class="s1">pickupY</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">pickupSlot </span><span class="s2">= </span><span class="s1">pickupSlot</span><span class="s2">;</span>
+
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">dropX </span><span class="s2">= </span><span class="s1">dropX</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">dropY </span><span class="s2">= </span><span class="s1">dropY</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">dropSlot </span><span class="s2">= </span><span class="s1">dropSlot</span><span class="s2">;</span>
+
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">stage </span><span class="s2">= </span><span class="s1">Stage</span><span class="s2">.</span><span class="s1">PICKUP</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">public int </span><span class="s1">getPickupX</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">pickupX</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">getPickupY</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">pickupY</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">getPickupSlot</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">pickupSlot</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">getDropX</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">dropX</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">getDropY</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">dropY</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">getDropSlot</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">dropSlot</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Stage getStage</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">stage</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">advance</span><span class="s2">(){</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">stage </span><span class="s2">== </span><span class="s1">Stage</span><span class="s2">.</span><span class="s1">PICKUP</span><span class="s2">){</span>
+            <span class="s1">stage </span><span class="s2">= </span><span class="s1">Stage</span><span class="s2">.</span><span class="s1">DROPOFF</span><span class="s2">;</span>
+        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">stage </span><span class="s2">== </span><span class="s1">Stage</span><span class="s2">.</span><span class="s1">DROPOFF</span><span class="s2">){</span>
+            <span class="s1">stage </span><span class="s2">= </span><span class="s1">Stage</span><span class="s2">.</span><span class="s1">DONE</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">isDone</span><span class="s2">(){</span>
+        <span class="s0">return </span><span class="s1">stage </span><span class="s2">== </span><span class="s1">Stage</span><span class="s2">.</span><span class="s1">DONE</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+
+<span class="s2">}</span></pre>
+</body>
+</html>
